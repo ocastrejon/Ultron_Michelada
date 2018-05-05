@@ -1,10 +1,12 @@
 class TopicsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
 
   # GET /topics
   # GET /topics.json
   def index
-    @topics = Topic.all
+    @topics = Topic.all.order(:votes_count)
+    # @orderer = @topics.sort{|a,b| a.votes.count <=> b.votes.count}
   end
 
   # GET /topics/1
